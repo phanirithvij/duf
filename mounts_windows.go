@@ -1,7 +1,7 @@
 //go:build windows
 // +build windows
 
-package main
+package duf
 
 import (
 	"fmt"
@@ -106,7 +106,7 @@ func getMount(guidOrMountPointBuf []uint16, isGUID bool) (m Mount, skip bool, wa
 		Blocks:     uint64(totalClusters),
 		BlockSize:  uint64(clusterSize),
 	}
-	m.DeviceType = deviceType(m)
+	m.DeviceType = DeviceType(m)
 	return
 }
 
@@ -254,7 +254,7 @@ func appendLogicalDrives(mounts []Mount, warnings []string) ([]Mount, []string) 
 	return mounts, warnings
 }
 
-func mounts() (ret []Mount, warnings []string, err error) {
+func Mounts() (ret []Mount, warnings []string, err error) {
 	ret = make([]Mount, 0)
 
 	// Local devices

@@ -1,4 +1,4 @@
-package main
+package duf
 
 import (
 	"os"
@@ -6,7 +6,16 @@ import (
 	"strings"
 )
 
-func findMounts(mounts []Mount, path string) ([]Mount, error) {
+const (
+	LocalDevice   = "local"
+	NetworkDevice = "network"
+	FuseDevice    = "fuse"
+	SpecialDevice = "special"
+	LoopsDevice   = "loops"
+	BindsMount    = "binds"
+)
+
+func FindMounts(mounts []Mount, path string) ([]Mount, error) {
 	var err error
 	path, err = filepath.Abs(path)
 	if err != nil {
@@ -50,18 +59,18 @@ func findMounts(mounts []Mount, path string) ([]Mount, error) {
 	return m, nil
 }
 
-func deviceType(m Mount) string {
+func DeviceType(m Mount) string {
 	if isNetworkFs(m) {
-		return networkDevice
+		return NetworkDevice
 	}
 	if isSpecialFs(m) {
-		return specialDevice
+		return SpecialDevice
 	}
 	if isFuseFs(m) {
-		return fuseDevice
+		return FuseDevice
 	}
 
-	return localDevice
+	return LocalDevice
 }
 
 // remote: [ "nfs", "smbfs", "cifs", "ncpfs", "afs", "coda", "ftpfs", "mfs", "sshfs", "fuse.sshfs", "nfs4" ]

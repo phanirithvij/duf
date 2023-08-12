@@ -1,16 +1,8 @@
 package main
 
 import (
+	. "github.com/muesli/duf"
 	"strings"
-)
-
-const (
-	localDevice   = "local"
-	networkDevice = "network"
-	fuseDevice    = "fuse"
-	specialDevice = "special"
-	loopsDevice   = "loops"
-	bindsMount    = "binds"
 )
 
 // FilterOptions contains all filters.
@@ -30,19 +22,19 @@ func renderTables(m []Mount, filters FilterOptions, opts TableOptions) {
 	deviceMounts := make(map[string][]Mount)
 	hasOnlyDevices := len(filters.OnlyDevices) != 0
 
-	_, hideLocal := filters.HiddenDevices[localDevice]
-	_, hideNetwork := filters.HiddenDevices[networkDevice]
-	_, hideFuse := filters.HiddenDevices[fuseDevice]
-	_, hideSpecial := filters.HiddenDevices[specialDevice]
-	_, hideLoops := filters.HiddenDevices[loopsDevice]
-	_, hideBinds := filters.HiddenDevices[bindsMount]
+	_, hideLocal := filters.HiddenDevices[LocalDevice]
+	_, hideNetwork := filters.HiddenDevices[NetworkDevice]
+	_, hideFuse := filters.HiddenDevices[FuseDevice]
+	_, hideSpecial := filters.HiddenDevices[SpecialDevice]
+	_, hideLoops := filters.HiddenDevices[LoopsDevice]
+	_, hideBinds := filters.HiddenDevices[BindsMount]
 
-	_, onlyLocal := filters.OnlyDevices[localDevice]
-	_, onlyNetwork := filters.OnlyDevices[networkDevice]
-	_, onlyFuse := filters.OnlyDevices[fuseDevice]
-	_, onlySpecial := filters.OnlyDevices[specialDevice]
-	_, onlyLoops := filters.OnlyDevices[loopsDevice]
-	_, onlyBinds := filters.OnlyDevices[bindsMount]
+	_, onlyLocal := filters.OnlyDevices[LocalDevice]
+	_, onlyNetwork := filters.OnlyDevices[NetworkDevice]
+	_, onlyFuse := filters.OnlyDevices[FuseDevice]
+	_, onlySpecial := filters.OnlyDevices[SpecialDevice]
+	_, onlyLoops := filters.OnlyDevices[LoopsDevice]
+	_, onlyBinds := filters.OnlyDevices[BindsMount]
 
 	// sort/filter devices
 	for _, v := range m {
@@ -59,7 +51,7 @@ func renderTables(m []Mount, filters FilterOptions, opts TableOptions) {
 		}
 
 		// skip hidden devices
-		if isHiddenFs(v) && !*all {
+		if IsHiddenFs(v) && !*all {
 			continue
 		}
 
@@ -101,7 +93,7 @@ func renderTables(m []Mount, filters FilterOptions, opts TableOptions) {
 			}
 		}
 
-		t := deviceType(v)
+		t := DeviceType(v)
 		deviceMounts[t] = append(deviceMounts[t], v)
 	}
 
@@ -112,13 +104,13 @@ func renderTables(m []Mount, filters FilterOptions, opts TableOptions) {
 		shouldPrint := *all
 		if !shouldPrint {
 			switch devType {
-			case localDevice:
+			case LocalDevice:
 				shouldPrint = (hasOnlyDevices && onlyLocal) || (!hasOnlyDevices && !hideLocal)
-			case networkDevice:
+			case NetworkDevice:
 				shouldPrint = (hasOnlyDevices && onlyNetwork) || (!hasOnlyDevices && !hideNetwork)
-			case fuseDevice:
+			case FuseDevice:
 				shouldPrint = (hasOnlyDevices && onlyFuse) || (!hasOnlyDevices && !hideFuse)
-			case specialDevice:
+			case SpecialDevice:
 				shouldPrint = (hasOnlyDevices && onlySpecial) || (!hasOnlyDevices && !hideSpecial)
 			}
 		}

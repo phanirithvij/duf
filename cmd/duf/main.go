@@ -10,6 +10,7 @@ import (
 
 	wildcard "github.com/IGLOU-EU/go-wildcard"
 	"github.com/jedib0t/go-pretty/v6/table"
+	. "github.com/muesli/duf"
 	"github.com/muesli/termenv"
 	"golang.org/x/term"
 )
@@ -26,7 +27,7 @@ var (
 	env   = termenv.EnvColorProfile()
 	theme Theme
 
-	groups        = []string{localDevice, networkDevice, fuseDevice, specialDevice, loopsDevice, bindsMount}
+	groups        = []string{LocalDevice, NetworkDevice, FuseDevice, SpecialDevice, LoopsDevice, BindsMount}
 	allowedValues = strings.Join(groups, ", ")
 
 	all         = flag.Bool("all", false, "include pseudo, duplicate, inaccessible file systems")
@@ -163,7 +164,7 @@ func main() {
 	}
 
 	// read mount table
-	m, warnings, err := mounts()
+	m, warnings, err := Mounts()
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
@@ -247,7 +248,7 @@ func main() {
 
 		for _, v := range flag.Args() {
 			var fm []Mount
-			fm, err = findMounts(m, v)
+			fm, err = FindMounts(m, v)
 			if err != nil {
 				fmt.Println(err)
 				os.Exit(1)

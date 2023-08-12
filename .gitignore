@@ -15,5 +15,6 @@
 # vendor/
 
 duf
+!cmd/duf
 
 dist/

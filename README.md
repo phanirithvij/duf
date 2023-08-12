@@ -56,8 +56,12 @@ See the [install instructions](https://golang.org/doc/install.html).
 Compiling duf is easy, simply run:
 
     git clone https://github.com/muesli/duf.git
-    cd duf
+    cd duf/cmd/duf
     go build
+
+Or install from source via
+
+	go install -ldflags="-s -w" github.com/muesli/duf/cmd/duf@latest
 
 ## Usage
 

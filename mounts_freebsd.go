@@ -1,7 +1,7 @@
 //go:build freebsd
 // +build freebsd
 
-package main
+package duf
 
 import (
 	"golang.org/x/sys/unix"
@@ -11,7 +11,7 @@ func (m *Mount) Stat() unix.Statfs_t {
 	return m.Metadata.(unix.Statfs_t)
 }
 
-func mounts() ([]Mount, []string, error) {
+func Mounts() ([]Mount, []string, error) {
 	var ret []Mount
 	var warnings []string
 
@@ -99,7 +99,7 @@ func mounts() ([]Mount, []string, error) {
 			Blocks:     uint64(stat.Blocks),
 			BlockSize:  uint64(stat.Bsize),
 		}
-		d.DeviceType = deviceType(d)
+		d.DeviceType = DeviceType(d)
 
 		ret = append(ret, d)
 	}

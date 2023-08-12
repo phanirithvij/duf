@@ -1,7 +1,7 @@
 //go:build windows
 // +build windows
 
-package main
+package duf
 
 import (
 	"golang.org/x/sys/windows/registry"
@@ -51,6 +51,6 @@ func isSpecialFs(m Mount) bool {
 	return ok
 }
 
-func isHiddenFs(m Mount) bool {
+func IsHiddenFs(m Mount) bool {
 	return false
 }

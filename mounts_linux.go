@@ -1,7 +1,7 @@
 //go:build linux
 // +build linux
 
-package main
+package duf
 
 import (
 	"fmt"
@@ -47,7 +47,7 @@ func (m *Mount) Stat() unix.Statfs_t {
 	return m.Metadata.(unix.Statfs_t)
 }
 
-func mounts() ([]Mount, []string, error) {
+func Mounts() ([]Mount, []string, error) {
 	var warnings []string
 
 	filename := "/proc/self/mountinfo"
@@ -103,7 +103,7 @@ func mounts() ([]Mount, []string, error) {
 			Blocks:     uint64(stat.Blocks), //nolint:unconvert
 			BlockSize:  uint64(stat.Bsize),
 		}
-		d.DeviceType = deviceType(d)
+		d.DeviceType = DeviceType(d)
 
 		// resolve /dev/mapper/* device names
 		if strings.HasPrefix(d.Device, "/dev/mapper/") {

@@ -1,7 +1,7 @@
 //go:build freebsd
 // +build freebsd
 
-package main
+package duf
 
 func isFuseFs(m Mount) bool {
 	//FIXME: implement
@@ -32,6 +32,6 @@ func isSpecialFs(m Mount) bool {
 	return false
 }
 
-func isHiddenFs(m Mount) bool {
+func IsHiddenFs(m Mount) bool {
 	return false
 }

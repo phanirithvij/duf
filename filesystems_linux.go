@@ -1,7 +1,7 @@
 //go:build linux
 // +build linux
 
-package main
+package duf
 
 import "strings"
 
@@ -280,7 +280,7 @@ func isSpecialFs(m Mount) bool {
 	return specialMap[int64(m.Stat().Type)] //nolint:unconvert
 }
 
-func isHiddenFs(m Mount) bool {
+func IsHiddenFs(m Mount) bool {
 	switch m.Device {
 	case "shm":
 		return true

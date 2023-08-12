@@ -1,7 +1,7 @@
 //go:build openbsd
 // +build openbsd
 
-package main
+package duf
 
 import (
 	"golang.org/x/sys/unix"
@@ -78,7 +78,7 @@ func mounts() ([]Mount, []string, error) {
 			Blocks:     uint64(stat.F_blocks),
 			BlockSize:  uint64(stat.F_bsize),
 		}
-		d.DeviceType = deviceType(d)
+		d.DeviceType = DeviceType(d)
 
 		ret = append(ret, d)
 	}
