@@ -9,7 +9,7 @@ import (
 
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/jedib0t/go-pretty/v6/text"
-	. "github.com/muesli/duf"
+	. "github.com/phanirithvij/duf"
 	"github.com/muesli/termenv"
 )
 

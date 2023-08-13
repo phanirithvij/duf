@@ -1,7 +1,7 @@
 package main
 
 import (
-	. "github.com/muesli/duf"
+	. "github.com/phanirithvij/duf"
 	"strings"
 )
 
